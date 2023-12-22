@@ -31,7 +31,7 @@ def signupaccount(request):
                 user = User.objects.create_user(username, email, password1)
                 user.save
                 login(request, user)
-                return redirect('useraccounts')
+                return redirect('useraccounts', user_id=user.id)
             except IntegrityError:
                 return render(request, 'signupaccount.html', {'form': UserCreateForm, 'error': 'Username already taken. Please choose a new username'})
         else:
