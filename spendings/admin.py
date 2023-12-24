@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PersonalSpending
+from .models import PersonalSpendingCategories
 
 # Register your models here.
-admin.site.register(PersonalSpending)
+admin.site.register(PersonalSpendingCategories)

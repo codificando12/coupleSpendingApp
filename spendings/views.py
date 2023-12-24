@@ -7,6 +7,8 @@ from . import views
 def home(request):
     return render(request, 'home.html')
 
-def userAccounts(request, user_id):
+def useraccounts(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     return render(request, 'useraccounts.html', {'user': user})
+
+

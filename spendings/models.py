@@ -1,11 +1,11 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
-class PersonalSpending(models.Model):
-    # icon =models.CharField(max_length=100)
+class PersonalSpendingCategories(models.Model):
+    icon = models.ImageField(upload_to='spendings/spending_icons')
     category = models.CharField(max_length = 100)
-    spending = models.CharField(max_length = 100)
-    spendingAmount = models.FloatField()
+    spendingNote = models.CharField(max_length = 100, default=' ')
+    spendingDate = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return self.spending
+        return self.category
