@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="GET" action="">
+    <label for="month">Select Month:</label>
+    <select name="month">
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+
+    <label for="year">Select Year:</label>
+    <input type="number" name="year" min="1900" max="2100" step="1" value="{{ selected_year }}">
+
+    <input type="submit" value="Filter">
+    <button type="submit" name="show_all">Show All</button>
+</form>
+<h1>{{ total_amount }}</h1>
+
+
+   
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Day</th>
+        <th scope="col">User</th>
+        <th scope="col">Spending</th>
+        <th scope="col">Amount</th>
+      </tr>
+    </thead>
+    {% for spendings in allSpendings %}
+    <tbody>
+      <tr>
+        <td>{{ spendings.spendingDate }}</td>
+        <th scope="row">{{ spendings.user }}</th>
+        <td>{{ spendings.spending }}</td>
+        <td>${{ spendings.spendingAmount}}</td>
+      </tr>
+    </tbody>
+    
+
+    {% endfor %}
+  
+  </table>
+  
+
+{% endblock content%}

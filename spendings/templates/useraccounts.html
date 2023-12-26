@@ -3,7 +3,7 @@
 <div class="container d-flex justify-content-center text-center vh-100 align-content-center flex-column">
     <div class="row align-items-center m-2">
         <div class="col-12 offset-lg-3 col-lg-6">
-            <a href="#"><button type="button" class="btn btn-primary w-75 fw-semibold">Personal Spendings</button></a>
+            <a href="{% url 'personalSpendings' user_id=user.id %}"><button type="button" class="btn btn-primary w-75 fw-semibold">Personal Spendings</button></a>
         </div>
         </div>
         <div class="row align-items-center m-2">
