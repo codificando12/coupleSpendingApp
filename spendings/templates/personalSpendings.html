@@ -24,6 +24,7 @@
     <input type="submit" value="Filter">
     <button type="submit" name="show_all">Show All</button>
 </form>
+<a href="{% url 'createPersonalCategories' user_id=user.id %}"><button class="btn btn-primary">Add Category</button></a>
 <h1>{{ total_amount }}</h1>
 
 
