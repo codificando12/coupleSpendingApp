@@ -57,8 +57,8 @@ def categoriesView(request, user_id):
         total_by_category[category] = total
     return render(request, 'categories.html', {'user': user, 'total_by_category': total_by_category})
 
-def updateCategory(request, category_id):
-    updateCategory = get_object_or_404(Categories, pk=category_id, user=request.user)
+def updateCategory(request, category_id, user_id):
+    updateCategory = get_object_or_404(Categories, pk=category_id)
     if request.method == 'GET':
         form = CategoryForm(instance= updateCategory)
         return render(request, 'updatecategory.html', {'form': form, 'category': updateCategory})
@@ -66,7 +66,7 @@ def updateCategory(request, category_id):
         try:
             form = CategoryForm(request.POST, instance=updateCategory)
             form.save()
-            return redirect('categoriesView', updateCategory.categoryName.id)
+            return redirect('categoriesView', user_id=request.user.id)
         except ValueError:
             return render(request, 'updatecategory.html', {'form': form, 'category': updateCategory, 'error': 'Bad data in form'})
 
