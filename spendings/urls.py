@@ -7,4 +7,5 @@ urlpatterns = [
     path('<int:user_id>/useraccounts/createPersonalCategories', views.createPersonalCategories, name='createPersonalCategories'),
     path('<int:user_id>/useraccounts/personalSpendings/categories', views.categoriesView, name='categoriesView'),
     path('<int:user_id>/useraccounts/personalSpendings/<int:category_id>', views.updateCategory, name='updateCategory'),
+    path('<int:user_id>/useraccounts/personalSpendings/<int:category_id>/delete', views.deleteCategory, name='deleteCategory'),
 ]

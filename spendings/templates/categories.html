@@ -19,6 +19,9 @@
                 <a class="btn btn-success" href="{% url 'updateCategory' user_id=user.id category_id=category.id %}">
                     Edit
                 </a>
+                <a class="btn btn-warning" href="{% url 'deleteCategory' user_id=user.id category_id=category.id %}">
+                    Delete
+                </a>
                 {% endif %}
             </div>
         </div>

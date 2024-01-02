@@ -25,7 +25,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
             <a href="{% url 'useraccounts' user_id=user.id %}" class="nav-link">Accounts</a>
-            <a href="#" class="nav-link">Spendings</a>
+            <a href="{% url 'categoriesView' user_id=user.id %}" class="nav-link">Categories</a>
             <a href="#" class="nav-link">Members</a>
             <a href="{% url 'logoutaccount' %}" class="nav-link">Logout ({{ user.username }})</a>
         </div>

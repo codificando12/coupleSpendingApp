@@ -70,4 +70,8 @@ def updateCategory(request, category_id, user_id):
         except ValueError:
             return render(request, 'updatecategory.html', {'form': form, 'category': updateCategory, 'error': 'Bad data in form'})
 
+def deleteCategory(request, category_id, user_id):
+    category = get_object_or_404(Categories, pk=category_id, user=request.user)
+    category.delete()
+    return redirect('categoriesView', user_id=user_id)
 
