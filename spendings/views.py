@@ -18,11 +18,17 @@ def personalSpendings(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     allSpendings = PersonalSpending.objects.filter(user=user)
     month = request.GET.get('month', None)
+    year = request.GET.get('year', None)
     total_amount = sum(spendings.spendingAmount for spendings in allSpendings)
     if month:
         # Filtra los gastos por el mes especificado y el usuario
         allSpendings = allSpendings.filter(
             spendingDate__month=month
+        )
+        total_amount = sum(spendings.spendingAmount for spendings in allSpendings)
+    if year:
+        allSpendings = allSpendings.filter(
+            spendingDate__year = year
         )
         total_amount = sum(spendings.spendingAmount for spendings in allSpendings)
     if 'show_all' in request.GET:
