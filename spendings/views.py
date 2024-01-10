@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from . import views
 from .models import PersonalSpending, Categories
-from .forms import CategoryForm
+from .forms import CategoryForm, PersonalSpendingForm
 from django.db.models import Sum
 
 # Create your views here.
@@ -31,6 +31,9 @@ def personalSpendings(request, user_id):
             spendingDate__year = year
         )
         total_amount = sum(spendings.spendingAmount for spendings in allSpendings)
+    
+    allSpendings = allSpendings.order_by('-spendingDate')
+
     if 'show_all' in request.GET:
         allSpendings = PersonalSpending.objects.filter(user=user)
         total_amount = sum(spendings.spendingAmount for spendings in allSpendings)
@@ -81,3 +84,33 @@ def deleteCategory(request, category_id, user_id):
     category.delete()
     return redirect('categoriesView', user_id=user_id)
 
+def addPersonalSpending(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    if request.method == 'GET':
+        return render(request, 'addPersonalSpending.html', {'form': PersonalSpendingForm(user=user), 'user': user})
+    else:
+        try:
+            form = PersonalSpendingForm(user, request.POST)
+            if form.is_valid():
+                category_instance = form.cleaned_data['category']
+                
+                new_spending = form.save(commit=False)
+                new_spending.user = request.user
+                new_spending.category = category_instance
+                new_spending.save()
+
+                return redirect('personalSpendings', user_id=user_id)
+        except ValueError:
+            return render(request, 'addPersonalSpending.html', {'form': PersonalSpendingForm(user=user), 
+                                                                   'error': 'Bad data passed in. Try again.', 
+                                                                   'user': user})
+        
+def deletePersonalSpending(request, spending_id, user_id):
+    spending = get_object_or_404(PersonalSpending, pk=spending_id, user=request.user)
+    spending.delete()
+    return redirect('personalSpendings', user_id=user_id)
+
+# def deletePersonalSpending(request, spending_id, user_id):
+#     spending = get_object_or_404(PersonalSpending, pk=spending_id, user=request.user)
+#     spending.delete()
+#     return redirect('personalSpendings', user_id=user_id)
